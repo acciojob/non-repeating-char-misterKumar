@@ -1,28 +1,33 @@
 function firstNonRepeatedChar(str) {
     if (str.length === 0) {
-        return null;
+        return "null";
     }
-
-    const charCountMap = new Map();
-
-    for (let char of str.toLowerCase()) {
-        charCountMap.set(char, (charCountMap.get(char) || 0) + 1);
+    str = str.toLowerCase();
+    let arr = new Array(26).fill(0);
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charCodeAt(i) - 97; // Adjust to 0-based index for lowercase letters
+        arr[c]++;
     }
-
-    for (let char of str.toLowerCase()) {
-        if (charCountMap.get(char) === 1) {
-            return char;
+    let res = -1;
+    let flag = true;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 1) {
+            res = i + 97; // Adjust back to ASCII code for lowercase letters
+            flag = false;
+            break;
         }
     }
-
-    return null;
+    if (!flag) {
+        return String.fromCharCode(res);
+    } else {
+        return null;
+    }
 }
 const input = prompt("Enter a string");
 const result = firstNonRepeatedChar(input);
 
-result===null? alert("null"):alert(result)
-// if (result !== "null") {
-//     alert(result);
-// } else {
-//     alert(null);
-// }
+if (result !== "null") {
+    alert(result);
+} else {
+    alert(null);
+}
